@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./PatientEditProfile.module.css";
-// import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 function PatientEditProfile() {
   const [patientData, setPatientData] = useState({
@@ -17,6 +18,10 @@ function PatientEditProfile() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  // Popup state
+  const [popupMessage, setPopupMessage] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+
   const calculateAge = (dob) => {
     const birthDate = new Date(dob);
     const today = new Date();
@@ -30,7 +35,6 @@ function PatientEditProfile() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     if (name === "dob") {
       const calculatedAge = calculateAge(value);
       setPatientData({ ...patientData, dob: value, age: calculatedAge });
@@ -39,12 +43,25 @@ function PatientEditProfile() {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (patientData.password !== patientData.confirmPassword) {
+      setPopupMessage("Passwords do not match!");
+      setShowPopup(true);
+      return;
+    }
+
+    setPopupMessage("Profile saved successfully!");
+    setShowPopup(true);
+  };
+
   return (
     <div className={styles.patientPage}>
-      {/* Left: Form Section */}
+      {/* Form Section */}
       <div className={styles.formSection}>
         <h2>Edit Patient Profile</h2>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className={styles.rowTwo}>
             <input
               type="text"
@@ -129,9 +146,9 @@ function PatientEditProfile() {
                 onChange={handleChange}
                 required
               />
-              {/* <span onClick={() => setShowPassword(!showPassword)}>
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </span> */}
+              <span onClick={() => setShowPassword(!showPassword)} className={styles.eyeIcon}>
+                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+              </span>
             </div>
 
             <div className={styles.passwordWrapper}>
@@ -143,23 +160,23 @@ function PatientEditProfile() {
                 onChange={handleChange}
                 required
               />
-              {/* <span onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
-                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-              </span> */}
+              <span onClick={() => setShowConfirmPassword(!showConfirmPassword)} className={styles.eyeIcon}>
+                <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
+              </span>
             </div>
           </div>
 
-          <button type="submit" className={styles.button}>Save Changes</button>
+          <button type="submit" className={styles.button}>
+            Save Changes
+          </button>
         </form>
       </div>
 
-      {/* Right: Live Preview Section */}
+      {/* Preview Section */}
       <div className={styles.previewSection}>
-        
         <div className={styles.previewCard}>
           <p>
-            <strong>Name:</strong> {patientData.firstname}{" "}
-            {patientData.lastname}
+            <strong>Name:</strong> {patientData.firstname} {patientData.lastname}
           </p>
           <p>
             <strong>DOB:</strong> {patientData.dob}
@@ -175,6 +192,16 @@ function PatientEditProfile() {
           </p>
         </div>
       </div>
+
+      {/* ✅ Custom Popup */}
+      {showPopup && (
+        <div className={styles.popupOverlay}>
+          <div className={styles.popupBox}>
+            <p>{popupMessage}</p>
+            <button onClick={() => setShowPopup(false)}>OK</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
