@@ -1,0 +1,239 @@
+body {
+  height: 92.0vh;
+  padding: 20px;
+  font-family: "Open Sans", sans-serif;
+  background-image: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0.3)
+    ),
+    url("/src/assets/doctoredit.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.patientPage {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start;
+  color: #ddd;
+}
+
+/* Left: Form Section */
+.formSection {
+  width: 30rem;
+  height: auto;
+  margin-top: 2rem;
+  padding: 25px;
+  /* border-radius: 15px; */
+  /* background-color: rgba(20, 20, 20, 0.7); */
+  /* backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow-y: auto; */
+}
+
+h2 {
+  text-align: center;
+  font-weight: 700;
+  color: #4b9b6e;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.rowTwo {
+  display: flex;
+  gap: 15px;
+}
+
+.rowTwo input[type="text"]{
+  width: 440px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #1b5e3a;
+  font-size: 14px;
+  background-color: #333;
+  color: white;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.inputGroup input[type="date"]{
+  width: 457px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #1b5e3a;
+  font-size: 14px;
+  background-color: #333;
+  color: white;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+textarea {
+  width: 457px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #1b5e3a;
+  font-size: 14px;
+  background-color: #333;
+  color: white;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+textarea:focus {
+  transform: scale(1.02);
+  box-shadow: 0 0 8px rgba(75, 155, 110, 0.6);
+  outline: none;
+}
+
+/* Date placeholder lighter */
+input[type="date"]::placeholder {
+  color: #1b5e3a;
+}
+
+textarea {
+  resize: none;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.genderGroup {
+  display: flex;
+  gap: 20px;
+  margin-top: 5px;
+}
+
+/* Custom Radio Button Green Check */
+.genderGroup input[type="radio"] {
+  accent-color: #4b9b6e; /* Modern browsers */
+  cursor: pointer;
+}
+
+
+.password {
+  display: flex;
+  gap: 20px;
+}
+
+.passwordWrapper {
+  position: relative;
+}
+
+.passwordWrapper input {
+  margin-top: 10px;
+  width: 180px;
+  padding: 10px;
+  padding-right: 35px;
+  border-radius: 6px;
+  border: 1px solid #1b5e3a;
+  background-color: #333;
+  color: white;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Same subtle animation */
+.passwordWrapper input:focus {
+  transform: scale(1.02);
+  box-shadow: 0 0 8px rgba(75, 155, 110, 0.6);
+  outline: none;
+}
+
+.passwordWrapper span {
+  position: absolute;
+  right: 10px;
+  top: 30%;
+  cursor: pointer;
+  color: #aaa;
+}
+
+/* Button */
+.button {
+  margin-top: 20px;
+  padding: 12px;
+  width: 130px;
+  background-color: #4B9B6E;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #2E7D5C;
+}
+
+.button {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, #1B5E3A, #43A047);
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    left: 100%;
+  }
+}
+
+/* Right: Preview Section */
+.previewSection {
+  width: 22rem;
+  margin-top: 10rem;
+  padding: 25px;
+  /* border-radius: 15px;
+  background-color: rgba(20, 20, 20, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: white; */
+}
+
+.previewCard {
+  margin-top: 15px;
+  background-color: #2f2f2f92;
+  padding: 20px;
+  border-radius: 10px;
+  animation: fadeInUp 0.6s ease;
+}
+
+.previewCard p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+/* Preview card animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
