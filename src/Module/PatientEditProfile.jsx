@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styles from "./PatientEditProfile.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
+// import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 function PatientEditProfile() {
   const [patientData, setPatientData] = useState({
@@ -149,7 +150,7 @@ function PatientEditProfile() {
                 required
               />
               <span onClick={() => setShowPassword(!showPassword)} className={styles.eyeIcon}>
-                <FontAwesomeIcon icon={faEye} />
+                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
               </span>
             </div>
 
@@ -163,7 +164,7 @@ function PatientEditProfile() {
                 required
               />
               <span onClick={() => setShowConfirmPassword(!showConfirmPassword)} className={styles.eyeIcon}>
-                <FontAwesomeIcon icon={faEye} />
+                <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
               </span>
             </div>
           </div>
