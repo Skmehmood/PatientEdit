@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./PatientEditProfile.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 
 function PatientEditProfile() {
   const [patientData, setPatientData] = useState({
@@ -17,10 +17,7 @@ function PatientEditProfile() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  // Popup state
-  const [popupMessage, setPopupMessage] = useState("");
-  const [showPopup, setShowPopup] = useState(false);
+  const [error, setError] = useState(""); // 🔴 error state
 
   const calculateAge = (dob) => {
     const birthDate = new Date(dob);
@@ -35,6 +32,7 @@ function PatientEditProfile() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     if (name === "dob") {
       const calculatedAge = calculateAge(value);
       setPatientData({ ...patientData, dob: value, age: calculatedAge });
@@ -47,21 +45,21 @@ function PatientEditProfile() {
     e.preventDefault();
 
     if (patientData.password !== patientData.confirmPassword) {
-      setPopupMessage("Passwords do not match!");
-      setShowPopup(true);
+      setError("Passwords do not match...!!!");
       return;
     }
 
-    setPopupMessage("Profile saved successfully!");
-    setShowPopup(true);
+    setError(""); // clear error if valid
+    alert("Profile created successfully!");
+    window.location.reload();
   };
 
   return (
     <div className={styles.patientPage}>
-      {/* Form Section */}
       <div className={styles.formSection}>
         <h2>Edit Patient Profile</h2>
         <form onSubmit={handleSubmit}>
+          {/* Name */}
           <div className={styles.rowTwo}>
             <input
               type="text"
@@ -81,6 +79,7 @@ function PatientEditProfile() {
             />
           </div>
 
+          {/* DOB */}
           <div className={styles.inputGroup}>
             <label>Date of Birth</label>
             <input
@@ -92,6 +91,7 @@ function PatientEditProfile() {
             />
           </div>
 
+          {/* Gender */}
           <div className={styles.inputGroup}>
             <label>Gender</label>
             <div className={styles.genderGroup}>
@@ -128,6 +128,7 @@ function PatientEditProfile() {
             </div>
           </div>
 
+          {/* Address */}
           <textarea
             name="address"
             placeholder="Enter Address"
@@ -136,6 +137,7 @@ function PatientEditProfile() {
             rows="3"
           ></textarea>
 
+          {/* Password */}
           <div className={styles.password}>
             <div className={styles.passwordWrapper}>
               <input
@@ -147,7 +149,7 @@ function PatientEditProfile() {
                 required
               />
               <span onClick={() => setShowPassword(!showPassword)} className={styles.eyeIcon}>
-                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                <FontAwesomeIcon icon={faEye} />
               </span>
             </div>
 
@@ -161,47 +163,28 @@ function PatientEditProfile() {
                 required
               />
               <span onClick={() => setShowConfirmPassword(!showConfirmPassword)} className={styles.eyeIcon}>
-                <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
+                <FontAwesomeIcon icon={faEye} />
               </span>
             </div>
           </div>
 
-          <button type="submit" className={styles.button}>
-            Save Changes
-          </button>
+          {/* Error message */}
+          {error && <p className={styles.errorMessage}>{error}</p>}
+
+          <button type="submit" className={styles.button}>Save Changes</button>
         </form>
       </div>
 
       {/* Preview Section */}
       <div className={styles.previewSection}>
         <div className={styles.previewCard}>
-          <p>
-            <strong>Name:</strong> {patientData.firstname} {patientData.lastname}
-          </p>
-          <p>
-            <strong>DOB:</strong> {patientData.dob}
-          </p>
-          <p>
-            <strong>Age:</strong> {patientData.age}
-          </p>
-          <p>
-            <strong>Gender:</strong> {patientData.gender}
-          </p>
-          <p>
-            <strong>Address:</strong> {patientData.address}
-          </p>
+          <p><strong>Name:</strong> {patientData.firstname} {patientData.lastname}</p>
+          <p><strong>DOB:</strong> {patientData.dob}</p>
+          <p><strong>Age:</strong> {patientData.age}</p>
+          <p><strong>Gender:</strong> {patientData.gender}</p>
+          <p><strong>Address:</strong> {patientData.address}</p>
         </div>
       </div>
-
-      {/* ✅ Custom Popup */}
-      {showPopup && (
-        <div className={styles.popupOverlay}>
-          <div className={styles.popupBox}>
-            <p>{popupMessage}</p>
-            <button onClick={() => setShowPopup(false)}>OK</button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
